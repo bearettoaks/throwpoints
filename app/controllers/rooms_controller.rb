@@ -18,7 +18,7 @@ class RoomsController < ApplicationController
     @room.host_id = @host.id
 
     if @room.save
-      redirect_to @room
+      redirect_to room_path(@room.code)
     else
       flash[:error] = "There was an error creating the room"
       render :index
@@ -26,7 +26,7 @@ class RoomsController < ApplicationController
   end
 
   def show
-    @room = Room.find(params[:id])
+    @room = Room.find_by!(code: params[:code])
     @players = @room.players.includes(:votes)
   end
 
