@@ -30,6 +30,11 @@ class RoomsController < ApplicationController
     @players = @room.players.includes(:votes)
   end
 
+  def join
+    @room = Room.find_by!(code: params[:code])
+    @player = @room.players.new
+  end
+
   private
 
   def room_params

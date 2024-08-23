@@ -13,8 +13,11 @@ Rails.application.routes.draw do
   root to: "rooms#index"
   # add devise routes here
   resources :rooms, param: :code, only: [:index, :new, :show, :create] do
-    resources :players, only: [:create]
-    resources :votes, only: [:create]
-    post "reveal", on: :member, to: "rooms#reveal"
+    member do
+      resources :players, only: [:create]
+      resources :votes, only: [:create]
+      post "reveal"
+      get "join"
+    end
   end
 end

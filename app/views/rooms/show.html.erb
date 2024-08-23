@@ -3,6 +3,10 @@
   <div class="text-2xl font-bold" aria-label="The rooms unique code">
     <%= @room.code %>
   </div>
+
+  <div class="mt-4">
+    <%= link_to "Join Room", join_room_path(@room.code), class: "underline" %>
+  </div>
 </header>
 
 <section class="flex flex-col justify-center items-center p-2">
