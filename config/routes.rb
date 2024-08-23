@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       resources :players, only: [:create]
       resources :votes, only: [:create]
       post "reveal"
+      post "reset_votes"
       get "join"
     end
   end

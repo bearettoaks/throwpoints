@@ -1,7 +1,7 @@
 class VotesController < ApplicationController
   def create
     @room = Room.find_by!(code: params[:code])
-    @player = @room.players.find_by!(id: session[:current_player]["id"])
+    @player = current_player
 
     if @player.votes.create!(vote_params)
       respond_to do |format|

@@ -16,7 +16,7 @@ class RoomsController < ApplicationController
     @room = Room.create!
     @host = @room.players.create!(room_params)
     @room.host_id = @host.id
-    session[:current_player] = @host
+    session[:current_player_id] = @host.id
 
     if @room.save
       redirect_to room_path(@room.code)
@@ -49,6 +49,17 @@ class RoomsController < ApplicationController
     else
       flash[:error] = "There was an error revealing the votes"
       redirect_to room_path(@room.code)
+    end
+  end
+
+  def reset_votes
+    @room = Room.find_by!(code: params[:code])
+    @room.players.each { |player| player.votes.destroy_all }
+    @room.update(revealed: false)
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to room_path(@room.code) }
     end
   end
 

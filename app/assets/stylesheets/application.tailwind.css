@@ -10,7 +10,15 @@
 }
 
 .btn-primary {
-  @apply bg-zinc-900 text-zinc-100  hover:text-white
+  @apply bg-zinc-900 text-zinc-100  hover:text-white hover:bg-zinc-800;
+}
+
+.btn-secondary {
+  @apply bg-zinc-100 text-zinc-900 hover:bg-zinc-200;
+}
+
+.btn-selected {
+  @apply bg-zinc-200 text-zinc-900;
 }
 
 /* forms */

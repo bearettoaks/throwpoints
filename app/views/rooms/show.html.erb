@@ -9,21 +9,17 @@
   </div>
 </header>
 
-<section class="flex flex-col justify-center items-center p-2">
-  <div class="flex gap-2">
-    <% [1, 2, 3, 5, 8, 13, 21].each do |value| %>
-      <%= button_to value, votes_path(@room.code), params: { vote: { value: value } }, method: :post, class: "btn btn-secondary" %>
-    <% end %>
-  </div>
-</section>
+<%= render "vote_buttons" %>
 
-<section class="flex flex-col justify-center items-center p-2">
+<section class="flex flex-col justify-center items-center p-2 mt-8">
   <div class="max-w-md mx-auto text-left w-1/2">
     <h2 class="text-xl text-center font-bold">Players</h2>
     <%= render partial: "players", locals: { room: @room, players: @room.players } %>
   </div>
 </section>
 
-<section class="flex flex-col justify-center items-center p-2">
+<section class="flex gap-3 justify-center items-center p-2 mt-8">
   <%= button_to "Reveal Votes", reveal_room_path(@room.code), method: :post, class: "btn btn-primary" %>
+  <%= button_to "Reset Votes", reset_votes_room_path(@room.code), method: :post, class: "btn btn-secondary" %>
+
 </section>
