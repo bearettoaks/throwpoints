@@ -5,7 +5,11 @@ class PlayersController < ApplicationController
 
     if @player.save
       session[:current_player_id] = @player.id
-      redirect_to room_path(@room.code)
+      broadcast_players_update
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to room_path(@room.code) }
+      end
     else
       flash[:error] = "There was an error joining the room"
       render :join
@@ -13,6 +17,11 @@ class PlayersController < ApplicationController
   end
 
   private
+
+  def broadcast_players_update
+    Turbo::StreamsChannel.broadcast_update_to @room, target: "players",
+      partial: "rooms/players", locals: { room: @room,  players: @room.players }
+  end
 
   def player_params
     params.require(:player).permit(:name, :room_id)

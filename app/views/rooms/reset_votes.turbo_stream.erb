@@ -1,5 +1,5 @@
 <%= turbo_stream.replace "vote-buttons" do %>
-  <%= render partial: "rooms/vote_buttons" %>
+  <%= render partial: "rooms/vote_buttons", locals: { room: @room } %>
 <% end %>
 
 <%= turbo_stream.replace "players" do %>

@@ -1,3 +1,5 @@
+ <%= turbo_stream_from @room %>
+
 <header class="flex flex-col justify-center items-center p-2">
   <h1 class="text-xl">Room #</h1>
   <div class="text-2xl font-bold" aria-label="The rooms unique code">
@@ -9,12 +11,16 @@
   </div>
 </header>
 
-<%= render "vote_buttons" %>
+<%= turbo_frame_tag "votes" do %>
+  <%= render partial: "vote_buttons", locals: { room: @room } %>
+<% end %>
 
 <section class="flex flex-col justify-center items-center p-2 mt-8">
   <div class="max-w-md mx-auto text-left w-1/2">
     <h2 class="text-xl text-center font-bold">Players</h2>
-    <%= render partial: "players", locals: { room: @room, players: @room.players } %>
+    <%= turbo_frame_tag "players" do %>
+      <%= render partial: "players", locals: { room: @room, players: @room.players } %>
+    <% end %>
   </div>
 </section>
 

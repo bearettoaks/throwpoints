@@ -42,6 +42,7 @@ class RoomsController < ApplicationController
   def reveal
     @room = Room.find_by!(code: params[:code])
     if @room.update(revealed: true)
+      broadcast_reveal_update
       respond_to do |format|
         format.turbo_stream
         format.html { redirect_to room_path(@room.code) }
@@ -57,6 +58,7 @@ class RoomsController < ApplicationController
     @room.players.each { |player| player.votes.destroy_all }
     @room.update(revealed: false)
 
+    broadcast_votes_update
     respond_to do |format|
       format.turbo_stream
       format.html { redirect_to room_path(@room.code) }
@@ -64,6 +66,18 @@ class RoomsController < ApplicationController
   end
 
   private
+
+  def broadcast_reveal_update
+    Turbo::StreamsChannel.broadcast_update_to @room, target: "players",
+      partial: "rooms/players", locals: { room: @room, players: @room.players }
+  end
+
+  def broadcast_votes_update
+    Turbo::StreamsChannel.broadcast_update_to @room, target: "votes",
+      partial: "rooms/vote_buttons", locals: { room: @room }
+    Turbo::StreamsChannel.broadcast_update_to @room, target: "players",
+      partial: "rooms/players", locals: { room: @room, players: @room.players }
+  end
 
   def room_params
     params.require(:room).permit(:name)
