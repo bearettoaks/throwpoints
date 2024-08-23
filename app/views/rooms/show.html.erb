@@ -9,25 +9,21 @@
   </div>
 </header>
 
-<hr/>
-<br/>
 <section class="flex flex-col justify-center items-center p-2">
-  <div class="max-w-md mx-auto text-left w-1/3">
-    <h2 class="text-xl text-center font-bold">Players</h2>
-    <ul class="mt-2">
-      <% @room.players.each do |player| %>
-        <li class="flex items-center gap-3 p-2">
-          <div class="text-lg flex-1 flex items-center gap-2">
-            <%= player.name %>
-            <% if @room.host == player %>
-              <span class="text-xs bg-zinc-200 text-zinc-700 px-1 rounded">Host</span>
-            <% end %>
-          </div>
-          <div class="text-2xl font-bold">
-            <span>0</span>
-          </div>
-        </li>
-      <% end %>
-    </ul>
+  <div class="flex gap-2">
+    <% [1, 2, 3, 5, 8, 13, 21].each do |value| %>
+      <%= button_to value, votes_path(@room.code), params: { vote: { value: value } }, method: :post, class: "btn btn-secondary" %>
+    <% end %>
   </div>
+</section>
+
+<section class="flex flex-col justify-center items-center p-2">
+  <div class="max-w-md mx-auto text-left w-1/2">
+    <h2 class="text-xl text-center font-bold">Players</h2>
+    <%= render partial: "players", locals: { room: @room, players: @room.players } %>
+  </div>
+</section>
+
+<section class="flex flex-col justify-center items-center p-2">
+  <%= button_to "Reveal Votes", reveal_room_path(@room.code), method: :post, class: "btn btn-primary" %>
 </section>

@@ -4,6 +4,8 @@ class Room < ApplicationRecord
   has_one :host, class_name: "Player"
   has_many :players
 
+  attribute :revealed, :boolean, default: false
+
   def generate_code
     self.code = loop do
       random_code = Array.new(10) { rand(0..9) }.join

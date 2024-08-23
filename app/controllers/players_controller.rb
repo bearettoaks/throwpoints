@@ -4,6 +4,7 @@ class PlayersController < ApplicationController
     @player = @room.players.new(player_params)
 
     if @player.save
+      session[:current_player] = @player
       redirect_to room_path(@room.code)
     else
       flash[:error] = "There was an error joining the room"
