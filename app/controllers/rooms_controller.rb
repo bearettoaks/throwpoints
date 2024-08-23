@@ -10,9 +10,15 @@ class RoomsController < ApplicationController
 
   def create
     @room = Room.create!
-    @ploayer = @room.players.create!(room_params)
+    @host = @room.players.create!(room_params)
+    @room.host_id = @host.id
 
-    redirect_to @room
+    if @room.save
+      redirect_to @room
+    else
+      flash[:error] = "There was an error creating the room"
+      render :index
+    end
   end
 
   def show
