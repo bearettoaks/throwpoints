@@ -1,6 +1,5 @@
 class RoomsController < ApplicationController
   def index
-    flash[:notice] = "Welcome to the Rooms!"
     @rooms = Room.all
   end
 
@@ -9,6 +8,11 @@ class RoomsController < ApplicationController
   end
 
   def create
+    if room_params[:name].blank?
+      flash[:error] = "Display name can't be blank"
+      return redirect_to new_room_path
+    end
+
     @room = Room.create!
     @host = @room.players.create!(room_params)
     @room.host_id = @host.id
