@@ -28,6 +28,9 @@ class RoomsController < ApplicationController
   def show
     @room = Room.find_by!(code: params[:code])
     @players = @room.players.includes(:votes)
+  rescue ActiveRecord::RecordNotFound
+    flash[:error] = "Room # #{params[:code]} was not found."
+    redirect_to root_path
   end
 
   def join
