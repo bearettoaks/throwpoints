@@ -11,4 +11,10 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root to: "rooms#index"
+  # add devise routes here
+  resources :rooms, only: [:index, :new, :show, :create] do
+    resources :players, only: [:create]
+    resources :votes, only: [:create]
+    post "reveal", on: :member, to: "rooms#reveal"
+  end
 end
