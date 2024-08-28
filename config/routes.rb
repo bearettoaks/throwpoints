@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   # add devise routes here
   resources :rooms, param: :code, only: [:index, :new, :show, :create] do
     member do
-      resources :players, only: [:create]
+      resources :players, only: [:create, :destroy]
       resources :votes, only: [:create]
       post "reveal"
       post "reset_votes"

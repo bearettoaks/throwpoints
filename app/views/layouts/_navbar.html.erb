@@ -1,0 +1,8 @@
+<nav class="border-b p-4 flex items-center gap-3">
+  <%= link_to "throwpoints", root_path, class: "flex-1 text-xl font-bold" %>
+  <% if current_player %>
+    <div>
+      <%= button_to "Leave Room", player_path(code: @room.code, id: current_player), method: :delete, data: { turbo: false } %>
+    </div>
+  <% end %>
+</nav>

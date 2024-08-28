@@ -16,6 +16,23 @@ class PlayersController < ApplicationController
     end
   end
 
+  def destroy
+    @room = Room.find_by!(code: params[:code])
+    @player = @room.players.find(params[:id])
+
+    if @player.destroy
+      session[:current_player_id] = nil
+      broadcast_players_update
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to root_path }
+      end
+    else
+      flash[:error] = "There was an error leaving the room"
+      render :join
+    end
+  end
+
   private
 
   def broadcast_players_update

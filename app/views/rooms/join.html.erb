@@ -1,5 +1,8 @@
 <div class="flex flex-col justify-center items-center h-screen w-screen">
-  <h1>Join Room <%= @room.code %></h1>
+  <header class="mb-3 text-center">
+    <h1 class="text-2xl font-bold">Join Room</h1>
+    <h2 class="text-xl">Room # <%= @room.code %></h2>
+  </header>
   <div class="max-w-md mx-auto">
     <%= form_with model: @player, url: players_path(@room.code), local: true, data: { turbo: false } do |form| %>
       <%= form.hidden_field :room_id, value: @room.id %>

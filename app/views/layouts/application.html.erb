@@ -19,6 +19,10 @@
 
   <body>
     <%= render "layouts/flash" %>
+    <% if !current_page? root_path %>
+      <%= render "layouts/navbar" %>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>

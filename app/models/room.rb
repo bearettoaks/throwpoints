@@ -2,7 +2,7 @@ class Room < ApplicationRecord
   before_create :generate_code
 
   has_one :host, class_name: "Player"
-  has_many :players
+  has_many :players, dependent: :destroy
 
   attribute :revealed, :boolean, default: false
 
