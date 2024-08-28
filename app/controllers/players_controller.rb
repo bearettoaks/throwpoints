@@ -4,6 +4,7 @@ class PlayersController < ApplicationController
     @player = @room.players.new(player_params)
 
     if @player.save
+      flash[:notice] = "You have joined the room!"
       session[:current_player_id] = @player.id
       broadcast_players_update
       respond_to do |format|

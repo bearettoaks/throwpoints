@@ -3,6 +3,14 @@
 @tailwind utilities;
 
 
+/* alerts */
+.alert {
+  @apply p-2 text-center font-medium border-b;
+}
+.alert-notice {
+  @apply bg-zinc-900 text-zinc-100;
+}
+
 /* buttons */
 
 .btn {
