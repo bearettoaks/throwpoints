@@ -11,6 +11,7 @@ gem "stimulus-rails"
 gem "cssbundling-rails"
 gem "jbuilder"
 gem "net-protocol"
+gem "net-pop", github: "ruby/net-pop"
 gem "redis", ">= 4.0.1"
 gem "tzinfo-data", platforms: %i[windows jruby]
 gem "bootsnap", require: false
