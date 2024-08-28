@@ -12,13 +12,13 @@ gem "cssbundling-rails"
 gem "jbuilder"
 gem "net-protocol"
 gem "redis", ">= 4.0.1"
-gem "tzinfo-data", platforms: %i[ windows jruby ]
+gem "tzinfo-data", platforms: %i[windows jruby]
 gem "bootsnap", require: false
 gem "image_processing", "~> 1.2"
 
 group :development, :test do
   gem "brakeman", require: false
-  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+  gem "debug", platforms: %i[mri windows], require: "debug/prelude"
   gem "pry-rails"
   gem "rubocop-rails-omakase", require: false
 end
