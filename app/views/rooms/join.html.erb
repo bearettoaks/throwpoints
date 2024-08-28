@@ -1,7 +1,7 @@
 <div class="flex flex-col justify-center items-center h-screen w-screen">
   <h1>Join Room <%= @room.code %></h1>
   <div class="max-w-md mx-auto">
-    <%= form_with model: @player, url: players_path(@room.code), local: true do |form| %>
+    <%= form_with model: @player, url: players_path(@room.code), local: true, data: { turbo: false } do |form| %>
       <%= form.hidden_field :room_id, value: @room.id %>
       <div class="my-3">
         <%= form.label :name, "Display name" %>
