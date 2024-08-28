@@ -15,9 +15,8 @@
   <%= render partial: "vote_buttons", locals: { room: @room } %>
 <% end %>
 
-<section class="flex flex-col justify-center items-center p-2 mt-8">
-  <div class="max-w-md mx-auto text-left w-1/2">
-    <h2 class="text-xl text-center font-bold">Players</h2>
+<section class="flex flex-col justify-center items-center p-2 mt-8 mb-12">
+  <div class="max-w-xl mx-auto text-left w-1/2">
     <%= turbo_frame_tag "players" do %>
       <%= render partial: "players", locals: { room: @room, players: @room.players } %>
     <% end %>
@@ -25,7 +24,6 @@
 </section>
 
 <section class="flex gap-3 justify-center items-center p-2 mt-8">
-  <%= button_to "Reveal Votes", reveal_room_path(@room.code), method: :post, class: "btn btn-primary" %>
   <%= button_to "Reset Votes", reset_votes_room_path(@room.code), method: :post, class: "btn btn-secondary" %>
-
+  <%= button_to "Reveal Votes", reveal_room_path(@room.code), method: :post, class: "btn btn-primary" %>
 </section>

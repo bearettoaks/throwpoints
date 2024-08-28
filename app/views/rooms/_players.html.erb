@@ -1,6 +1,6 @@
 <ul id="players" class="mt-2">
   <% players.each do |player| %>
-    <li class="flex items-center gap-3 p-2">
+    <li class="flex items-center gap-3 p-2 border-b pb-3 first:border-t">
       <div class="text-lg flex-1 flex items-center gap-2">
         <%= player.name %>
         <% if room.host == player %>
