@@ -6,6 +6,7 @@ class PlayersController < ApplicationController
     if @player.save
       flash[:notice] = "You have joined the room!"
       session[:current_player_id] = @player.id
+      session[:current_room_code] = @room.code
       broadcast_players_update
       respond_to do |format|
         format.turbo_stream

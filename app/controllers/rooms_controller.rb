@@ -1,6 +1,9 @@
 class RoomsController < ApplicationController
   def index
-    @rooms = Room.all
+    if current_player && current_room
+      flash[:notice] = "You are already in a room. Leave the room to create a new one."
+      redirect_to room_path(current_room.code)
+    end
   end
 
   def new
@@ -17,6 +20,7 @@ class RoomsController < ApplicationController
     @host = @room.players.create!(room_params)
     @room.host_id = @host.id
     session[:current_player_id] = @host.id
+    session[:current_room_code] = @room.code
 
     if @room.save
       redirect_to room_path(@room.code)
@@ -35,8 +39,13 @@ class RoomsController < ApplicationController
   end
 
   def join
-    @room = Room.find_by!(code: params[:code])
-    @player = @room.players.new
+    if current_player && current_room
+      flash[:notice] = "You are already in a room. Leave the room to create a new one."
+      redirect_to room_path(current_room.code)
+    else
+      @room = Room.find_by!(code: params[:code])
+      @player = @room.players.new
+    end
   end
 
   def reveal
