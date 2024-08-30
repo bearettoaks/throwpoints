@@ -26,8 +26,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_23_062915) do
     t.string "code", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "host_id"
+    t.bigint "host_id"
     t.index ["code"], name: "index_rooms_on_code", unique: true
+    t.index ["host_id"], name: "index_rooms_on_host_id"
   end
 
   create_table "votes", force: :cascade do |t|
@@ -39,5 +40,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_23_062915) do
   end
 
   add_foreign_key "players", "rooms"
+  add_foreign_key "rooms", "players", column: "host_id", on_delete: :nullify
   add_foreign_key "votes", "players"
 end

@@ -1,4 +1,5 @@
 require "rails_helper"
+require "rack_session_access/capybara"
 
 RSpec.feature "User can join a room" do
   scenario "when not already in a room" do
@@ -18,15 +19,18 @@ RSpec.feature "User can join a room" do
     expect(room.players.last.votes).to be_empty
   end
 
-  scenario "when already in a room" do
+  scenario "when already in a room is redirected back to the room and asked to leave first" do
     room = create(:room)
-    user = create(:user, room: room)
+    player = create(:player, room: room)
+    page.set_rack_session(current_room_code: room.code)
+    page.set_rack_session(current_player_id: player.id)
 
-    visit root_path
-    fill_in "Room Code", with: room.code
-    click_on "Join Room"
+    visit join_room_path(room.code)
 
     expect(current_path).to eq(room_path(room.code))
-    expect(page).to have_content("You are already in a room.")
+    expect(page).to have_css(
+      ".alert",
+      text: "You are already in a room. Leave the room to create a new one."
+    )
   end
 end

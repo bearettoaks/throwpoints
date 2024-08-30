@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :player do
     name { "Player" }
-    room { create(:room) }
+    association :room
   end
 end

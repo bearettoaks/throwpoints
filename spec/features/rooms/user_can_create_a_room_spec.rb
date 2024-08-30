@@ -1,4 +1,5 @@
 require "rails_helper"
+require "rack_session_access/capybara"
 
 RSpec.feature "User can create a room" do
   scenario "when not already in a room" do
@@ -23,8 +24,23 @@ RSpec.feature "User can create a room" do
     [0, 1, 2, 3, 5, 8, 13, 21, 40, 100].each do |value|
       expect(page).to have_css(".vote-button", text: value)
     end
-    expect(page).to have_content("Test User", count: 1)
+    expect(page).to have_content("Test Host", count: 1)
     expect(page).to have_css(".reveal-button", text: "Reveal Votes")
     expect(page).to have_css(".reset-button", text: "Reset Votes")
+  end
+
+  scenario "when already in a room is redirected back to the room and asked to leave first" do
+    room = create(:room)
+    page.set_rack_session(current_room_code: room.code)
+    page.set_rack_session(current_player_id: room.host.id)
+
+    visit room_path(room.code)
+    click_on "Join Room"
+
+    expect(current_path).to eq(room_path(room.code))
+    expect(page).to have_css(
+      ".alert",
+      text: "You are already in a room. Leave the room to create a new one."
+    )
   end
 end

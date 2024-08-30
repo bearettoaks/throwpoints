@@ -16,13 +16,14 @@ class RoomsController < ApplicationController
       return redirect_to new_room_path
     end
 
-    @room = Room.create!
-    @host = @room.players.create!(room_params)
-    @room.host_id = @host.id
-    session[:current_player_id] = @host.id
-    session[:current_room_code] = @room.code
+    @room = Room.new
+    @player = @room.players.build(room_params)
+    @room.host = @player
 
     if @room.save
+      session[:current_player_id] = @player.id
+      session[:current_room_code] = @room.code
+
       flash[:notice] = "Welcome to your room! Invite others to join using the link below."
       redirect_to room_path(@room.code)
     else

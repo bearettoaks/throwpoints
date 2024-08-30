@@ -9,7 +9,7 @@
       </div>
       <div class="text-2xl font-bold">
         <% if room.revealed? %>
-          <span><%= player.votes.last&.value %></span>
+          <span class="player-#{player.id}-vote"><%= player.votes.last&.value %></span>
         <% else %>
           <% if player.votes.last %>
             <span>✔</span>

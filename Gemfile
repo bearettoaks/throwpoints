@@ -31,3 +31,10 @@ end
 group :development do
   gem "web-console"
 end
+
+group :test do
+  gem "database_cleaner"
+  gem "launchy"
+  gem "rack_session_access"
+  gem "simplecov", require: false
+end
