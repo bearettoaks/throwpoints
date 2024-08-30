@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 /* alerts */
 .alert {
   @apply p-2 text-center font-medium border-b;
