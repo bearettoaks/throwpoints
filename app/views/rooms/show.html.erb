@@ -2,7 +2,7 @@
 
 <header class="flex flex-col justify-center items-center p-2">
   <h1 class="text-xl">Room #</h1>
-  <div class="text-2xl font-bold" aria-label="The rooms unique code">
+  <div class="room-code text-2xl font-bold" aria-label="The rooms unique code">
     <%= @room.code %>
   </div>
 
@@ -24,6 +24,6 @@
 </section>
 
 <section class="flex gap-3 justify-center items-center p-2 mt-8">
-  <%= button_to "Reset Votes", reset_votes_room_path(@room.code), method: :post, class: "btn btn-secondary" %>
-  <%= button_to "Reveal Votes", reveal_room_path(@room.code), method: :post, class: "btn btn-primary" %>
+  <%= button_to "Reset Votes", reset_votes_room_path(@room.code), method: :post, class: "reset-button btn btn-secondary" %>
+  <%= button_to "Reveal Votes", reveal_room_path(@room.code), method: :post, class: "reveal-button btn btn-primary" %>
 </section>

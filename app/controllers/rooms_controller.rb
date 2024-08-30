@@ -23,6 +23,7 @@ class RoomsController < ApplicationController
     session[:current_room_code] = @room.code
 
     if @room.save
+      flash[:notice] = "Welcome to your room! Invite others to join using the link below."
       redirect_to room_path(@room.code)
     else
       flash[:error] = "There was an error creating the room"

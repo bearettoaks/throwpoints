@@ -6,6 +6,10 @@ class Room < ApplicationRecord
 
   attribute :revealed, :boolean, default: false
 
+  def host
+    players.find_by(id: host_id)
+  end
+
   def generate_code
     self.code = loop do
       random_code = Array.new(10) { rand(0..9) }.join
