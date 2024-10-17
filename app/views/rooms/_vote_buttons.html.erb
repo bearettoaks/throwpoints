@@ -1,6 +1,6 @@
 <section id="vote-buttons" class="flex flex-col justify-center items-center p-2">
   <div class="grid grid-cols-5 gap-3">
-    <% ["0.5", "0", "1", "2", "3", "5", "8", "13", "21", "40"].each do |value| %>
+    <% ["?", "0.5", "0", "1", "2", "3", "5", "8", "13", "21", "40"].each do |value| %>
       <% selected = current_player&.votes&.last&.value == value %>
       <%= button_to value, votes_path(room.code), params: { vote: { value: value } }, method: :post,
         class: "vote-button btn #{selected ? 'btn-selected' : 'btn-secondary'} text-2xl p-8 w-full" %>
