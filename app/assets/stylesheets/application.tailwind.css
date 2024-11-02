@@ -21,11 +21,15 @@
 }
 
 .btn-secondary {
-  @apply bg-zinc-100 text-zinc-900 hover:bg-zinc-200;
+  @apply bg-zinc-200 text-zinc-900 hover:bg-zinc-300;
+}
+
+.vote-button {
+  @apply bg-white hover:bg-zinc-900 hover:text-white;
 }
 
 .btn-selected {
-  @apply bg-zinc-200 text-zinc-900;
+  @apply bg-zinc-900 text-white;
 }
 
 /* forms */
